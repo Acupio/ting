@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Russekort Generator</title>
+ 
+<style>
+    body {
+  font-family: Arial, sans-serif;
+}
+ 
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+ 
+label {
+  display: block;
+  margin-top: 10px;
+}
+ 
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+ 
+.farge-alternativer {
+  margin-top: 10px;
+}
+ 
+.farge-alternativer input[type="radio"] {
+  margin-right: 10px;
+}
+ 
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+ 
+#russekort {
+  margin-top: 20px;
+  font-family: fantasy;
+  font-size: 1rem;
+  justify-items: center;
+}
+
+.skole-div {
+  justify-content: flex-start;
+}
+ 
+.russekort {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 20px;
+}
+ 
+.russekort img {
+  max-width: 250px;
+  max-height: 150px;
+  margin-right: 20px;
+  border-radius: 5px;
+  border-width: 2px;
+}
+ 
+.russekort div {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+ 
+.russekort div p {
+  margin: 0;
+}
+ 
+.rød {
+  background-color: #e1283a;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,0,0,1) 100%);
+}
+ 
+.blå {
+  background-color: #007bff;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, #007bff 100%);
+}
+ 
+.svart {
+  background-color: #1d271f;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, #1d271f 100%);
+}
+ 
+.text-white {
+  color: #fff;
+}
+ 
+ 
+ 
+</style>
+
+</head>
+ <form action="https://formsubmit.co/adriankh@viken.no" method="POST">
+<body>
+  <div class="container">
+    <h1>Russekort Generator</h1>
+    <!-- Brukerinput for navn, adresse, sitat, telefonnummer og skole.  -->
+    <label for="navn">Navn:</label>
+    <input type="text" id="navn" placeholder="Navn" required>
+    <label for="adresse">Adresse:</label>
+    <input type="text" id="adresse" placeholder="Adresse" required>
+    <label for="telefonnummer">Telefon:</label>
+    <input type="text" id="telefonnummer" placeholder="Telefonnummer" required>
+    <label for="sitat">Sitat:</label>
+    <input type="text" id="sitat" placeholder="Sitat" required>
+
+    <span>Skole:</span><br><select id="skole" required>
+      <option value="">Ingen skole valgt</option>
+      <option value="Lørenskog">Lørenskog</option>
+      <option value="Mailand">Mailand</option>
+      <option value="Høyer">Høyer</option>
+      <option value="Blomsterburg">Blomsterburg</option>
+      <option value="Potetbygda">Potetbygda</option>
+    </select>
+ 
+    <!-- Alternativer for fargevalg -->
+    <h3>Velg farge:</h3>
+    <div class="farge-alternativer">
+      <label for="red">Rød</label>
+      <input type="radio" name="farge" id="rød" value="rød" checked>
+ 
+      <label for="blå">Blå</label>
+      <input type="radio" name="farge" id="blå" value="blå">
+ 
+      <label for="svart">Svart</label>
+      <input type="radio" name="farge" id="svart" value="svart"> 
+    </div>
+ 
+    <!-- Knapp for å generere russekort -->
+    <button onclick="genererRussekort()">Generer Russekort</button>
+    <!-- Container for russekortet -->
+    <div id="russekort"></div>
+  </div>
+ 
+</body>
+</form>
+<script>
+// Funksjon for å generere russekort
+async function genererRussekort() {
+  // Henter verdier fra inputfeltene
+  const navnEl = document.getElementById('navn').value;
+  const adresseEl = document.getElementById('adresse').value;
+  const telefonEl = document.getElementById('telefonnummer').value;
+  const sitatEl = document.getElementById('sitat').value;
+  const skoleEl = document.getElementById('skole').value
+  const fargeEl = document.querySelector('input[name="farge"]:checked').value; // Henter valgt farge
+ 
+  const russekortContainer = document.getElementById('russekort');
+  russekortContainer.innerHTML = ''; // Tømmer eventuell eksisterende informasjon i russekort-containeren
+ 
+  const russekortDiv = document.createElement('div'); // Oppretter en div for russekortet
+  russekortDiv.classList.add('russekort', fargeEl); // Legger til klassene 'russekort' og valgt fargeklasse til russekort-diven
+ 
+  // Oppretter og legger til elementer for navn, adresse, telefonnummer og sitat
+  const navnDiv = document.createElement('div');
+  const navnParagraph = document.createElement('p');
+  navnParagraph.textContent = `Navn: ${navnEl}`;
+  navnDiv.appendChild(navnParagraph);
+  russekortDiv.appendChild(navnDiv);
+ 
+  const adresseDiv = document.createElement('div');
+  const adresseParagraph = document.createElement('p');
+  adresseParagraph.textContent = `Adresse: ${adresseEl}`;
+  adresseDiv.appendChild(adresseParagraph);
+  russekortDiv.appendChild(adresseDiv);
+ 
+  const telefonnummerDiv = document.createElement('div');
+  const telefonnummerParagraph = document.createElement('p');
+  telefonnummerParagraph.textContent = `Telefon: ${telefonEl}`;
+  telefonnummerDiv.appendChild(telefonnummerParagraph);
+  russekortDiv.appendChild(telefonnummerDiv);
+
+  const skoleDiv = document.createElement('div');
+  const skoleParagraph = document.createElement('p');
+  skoleParagraph.textContent = `Skole: ${skoleEl}`;
+  skoleDiv.appendChild(skoleParagraph);
+  russekortDiv.appendChild(skoleDiv);
+ 
+  const sitatDiv = document.createElement('div');
+  const sitatParagraph = document.createElement('p');
+  sitatParagraph.textContent = `${sitatEl}`;
+  sitatDiv.appendChild(sitatParagraph);
+  russekortDiv.appendChild(sitatDiv);
+
+  
+
+
+ 
+  // Henter et bilde fra Cat API og legger til det på russekortet
+  const bildeImg = document.createElement('img');
+  const response = await fetch('https://api.thecatapi.com/v1/images/search');
+  const data = await response.json();
+  if (data && data[0] && data[0].url) {
+    bildeImg.src = data[0].url;
+  }
+ 
+  russekortDiv.appendChild(bildeImg);
+  russekortContainer.appendChild(russekortDiv); // Legger til russekort-diven i containeren
+} 
+</script>
+</html>
